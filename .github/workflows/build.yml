@@ -3,21 +3,24 @@ name: Build Succeeds On PR
 on:
   pull_request:
     branches:
-      - master
-      - main
-      - dev
+      - master # Ensure this matches your default branch name exactly
+
 jobs:
   build:
     name: Build the project
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checking out the repository
+      - name: Checkout the repository
         uses: actions/checkout@v3
-      - name: use Node.js
+
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
           node-version: "20"
-      - name: Install Dependencies
-        uses: npm install --legacy-peer-deps
-      - name: Run the Build
-        uses: npm run build
+
+      - name: Install dependencies
+        run: npm install --legacy-peer-deps
+
+      - name: Run the build
+        run: npm run build
